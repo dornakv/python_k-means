@@ -2,7 +2,7 @@ import numpy as np
 
 def GenerateRandomLeftStochastic(K, amount_of_data):
 	gama = np.random.rand(K, amount_of_data)
-	gama_sum = np.sum(gama,0) #for each cluster
+	gama_sum = np.sum(gama,0) #for each datapoint the assigment sum has to be 1 (for binary assigned/!assigned it would mean it is assigned to only one cluster)
 	return np.divide(gama, gama_sum)
 
 def Kmeans_int(data, K, eps, max_iters, norm=None):
@@ -14,7 +14,7 @@ def Kmeans_int(data, K, eps, max_iters, norm=None):
 	centroids = np.zeros([K, dimensions])
 	L = float("inf")
 	for i in range(max_iters):
-		gama_sum = np.sum(gama,1) #for each datapoint
+		gama_sum = np.sum(gama,1) #how many datapoints in each cluster
 		for k in range(K):
 			if gama_sum[k] != 0:
 				centroids[k,:] = np.divide(np.sum(np.multiply(data.transpose(), gama[k,:]),1), gama_sum[k])
